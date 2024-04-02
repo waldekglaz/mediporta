@@ -9,7 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import CircularProgress from "@mui/material/CircularProgress";
 import Paper from "@mui/material/Paper";
 import { EnhancedTableHead } from "./EnhancedTableHead";
-
+import { useTableContext } from "../context";
 export interface Data {
   id: number;
   count: number;
@@ -67,21 +67,13 @@ export interface HeadCell {
   numeric: boolean;
 }
 
-export default function EnhancedTable({
-  elementsPerPage,
-  setElementsPerPage,
-  data,
-  loading,
-}: {
-  elementsPerPage: number;
-  setElementsPerPage: React.Dispatch<React.SetStateAction<number>>;
-  data: any;
-  loading: boolean;
-}) {
+export default function EnhancedTable() {
   const [order, setOrder] = React.useState<Order>("desc");
   const [orderBy, setOrderBy] = React.useState<keyof Data>("count");
 
   const [page, setPage] = React.useState(0);
+  const { loading, data, elementsPerPage, setElementsPerPage } =
+    useTableContext();
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -115,7 +107,7 @@ export default function EnhancedTable({
       ),
     [order, orderBy, page, elementsPerPage, data]
   );
-  console.log(emptyRows, "emptyRows");
+
   return (
     <Box>
       {loading ? (

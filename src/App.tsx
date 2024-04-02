@@ -4,7 +4,7 @@ import axios from "axios";
 import { TextField, Box } from "@mui/material";
 import EnhancedTable from "./components/MainTable";
 import Alert from "@mui/material/Alert";
-
+import { TableContext } from "./context";
 export type TOrder = "asc" | "desc";
 
 function App() {
@@ -32,28 +32,27 @@ function App() {
   }, []);
 
   return (
-    <Box component="section" sx={{ p: 8, margin: "0 auto", width: 320 }}>
-      <TextField
-        id="outlined-basic"
-        label="Elements per page"
-        variant="outlined"
-        type="number"
-        InputProps={{ inputProps: { min: 1, max: data.length } }}
-        value={elementsPerPage}
-        onChange={(e) => setElementsPerPage(+e.target.value)}
-        sx={{ width: "100%", mb: 2 }}
-      />
-      {error ? (
-        <Alert severity="error">{error}.Please referesh the page</Alert>
-      ) : (
-        <EnhancedTable
-          elementsPerPage={elementsPerPage}
-          setElementsPerPage={setElementsPerPage}
-          data={data}
-          loading={loading}
+    <TableContext.Provider
+      value={{ data, loading, elementsPerPage, setElementsPerPage }}
+    >
+      <Box component="section" sx={{ p: 8, margin: "0 auto", width: 320 }}>
+        <TextField
+          id="outlined-basic"
+          label="Elements per page"
+          variant="outlined"
+          type="number"
+          InputProps={{ inputProps: { min: 1, max: data.length } }}
+          value={elementsPerPage}
+          onChange={(e) => setElementsPerPage(+e.target.value)}
+          sx={{ width: "100%", mb: 2 }}
         />
-      )}
-    </Box>
+        {error ? (
+          <Alert severity="error">{error}.Please referesh the page</Alert>
+        ) : (
+          <EnhancedTable />
+        )}
+      </Box>
+    </TableContext.Provider>
   );
 }
 
