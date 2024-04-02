@@ -1,37 +1,21 @@
-import { Order } from "./MainTable";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import { visuallyHidden } from "@mui/utils";
-import { Data } from "./MainTable";
 import TableCell from "@mui/material/TableCell";
-import { HeadCell } from "./MainTable";
 import Box from "@mui/material/Box";
+import { Data, TOrder } from "../types";
+import { headCells } from "../consts";
 
 interface EnhancedTableProps {
   onRequestSort: (
     event: React.MouseEvent<unknown>,
     property: keyof Data
   ) => void;
-
-  order: Order;
+  order: TOrder;
   orderBy: string;
   rowCount: number;
 }
-const headCells: readonly HeadCell[] = [
-  {
-    id: "name",
-    numeric: false,
-    disablePadding: true,
-    label: "Tag",
-  },
-  {
-    id: "count",
-    numeric: true,
-    disablePadding: false,
-    label: "count",
-  },
-];
 
 export function EnhancedTableHead(props: EnhancedTableProps) {
   const {

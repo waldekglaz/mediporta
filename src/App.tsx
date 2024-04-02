@@ -1,11 +1,9 @@
-import "./App.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { TextField, Box } from "@mui/material";
 import EnhancedTable from "./components/MainTable";
 import Alert from "@mui/material/Alert";
 import { TableContext } from "./context";
-export type TOrder = "asc" | "desc";
 
 function App() {
   const [data, setData] = useState([]);
